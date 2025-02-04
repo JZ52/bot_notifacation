@@ -1,0 +1,185 @@
+2025-01-11 23:01:19.178855 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:01:19.179460 - Нет данных для отправки сводки.
+2025-01-11 23:04:02.178516 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:04:02.179133 - Нет данных для отправки сводки.
+2025-01-11 23:04:48.616346 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:04:48.617146 - Нет данных для отправки сводки.
+2025-01-11 23:07:28.711580 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:07:28.712482 - Нет данных для отправки сводки.
+2025-01-11 23:07:54.804153 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:07:54.804785 - Нет данных для отправки сводки.
+2025-01-11 23:10:22.009983 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:10:22.010838 - Нет данных для отправки сводки.
+2025-01-11 23:11:38.015235 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:11:38.016053 - Нет данных для отправки сводки.
+2025-01-11 23:12:36.016234 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:12:36.016769 - Нет данных для отправки сводки.
+2025-01-11 23:15:06.738025 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:15:06.738638 - Нет данных для отправки сводки.
+2025-01-11 23:17:20.019160 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:17:20.019867 - Нет данных для отправки сводки.
+2025-01-11 23:18:01.116531 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:18:01.117260 - Нет данных для отправки сводки.
+2025-01-11 23:19:06.687218 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 61: invalid continuation byte
+2025-01-11 23:19:06.688044 - Нет данных для отправки сводки.
+2025-01-11 23:21:32.454494 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:21:32.455322 - Нет данных для отправки сводки.
+2025-01-11 23:29:10.559844 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:29:10.560436 - Нет данных для отправки сводки.
+2025-01-11 23:29:35.447597 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:29:35.448678 - Нет данных для отправки сводки.
+2025-01-11 23:29:54.069681 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:29:54.070443 - Нет данных для отправки сводки.
+2025-01-11 23:30:31.057381 - Ошибка при выполнении запроса: invalid dsn: invalid connection option "encoding"
+
+2025-01-11 23:30:31.057907 - Нет данных для отправки сводки.
+2025-01-11 23:30:55.183789 - Ошибка при выполнении запроса: invalid dsn: invalid connection option "encoding_client"
+
+2025-01-11 23:30:55.184972 - Нет данных для отправки сводки.
+2025-01-11 23:31:21.490389 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:31:21.491259 - Нет данных для отправки сводки.
+2025-01-11 23:31:59.055863 - Нет данных для отправки сводки.
+2025-01-11 23:33:11.783526 - Нет данных для отправки сводки.
+2025-01-11 23:33:38.815042 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:33:38.815958 - Нет данных для отправки сводки.
+2025-01-11 23:34:29.673186 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:34:29.673982 - Нет данных для отправки сводки.
+2025-01-11 23:35:01.541292 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+2025-01-11 23:35:01.541847 - Нет данных для отправки сводки.
+2025-01-11 23:38:32.292339 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 67, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<4 lines>...
+        client_encoding='cp1251'
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:38:32.294943 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:39:39.839808 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 67, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<4 lines>...
+        client_encoding='utf-8'
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:39:39.842003 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:40:39.349839 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 66, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<3 lines>...
+        port=SQL_PORT
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:40:39.352307 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:41:38.711260 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 67, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<4 lines>...
+        options="-c client_encoding=UTF8"
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:41:38.713406 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:42:21.857499 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 67, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<4 lines>...
+        options="-c client_encoding=LATIN1"
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:42:21.859796 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:43:39.097880 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 63, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<4 lines>...
+        options="-c client_encoding=UTF-8"
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:43:39.100121 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:44:14.869295 - Ошибка при выполнении запроса: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\project\Bot_notifacation\app.py", line 63, in get_daily_summary
+    connection = create_connection()
+  File "C:\project\Bot_notifacation\app.py", line 44, in create_connection
+    connection = psycopg2.connect(
+        host=SQL_ADRES,
+    ...<4 lines>...
+        client_encoding='UTF8'
+    )
+  File "C:\project\Bot_notifacation\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc2 in position 55: invalid continuation byte
+
+2025-01-11 23:44:14.871700 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-11 23:51:30.001120 - Версия актуальна: 11.02.161
+NoneType: None
+
+2025-01-12 23:05:47.462837 - Ошибка отправки: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""}
+NoneType: None
+
+2025-01-12 23:05:52.639122 - Ошибка отправки: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""}
+NoneType: None
+
+2025-01-12 23:05:58.111410 - Ошибка отправки: {"ok":false,"error_code":400,"description":"Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""}
+NoneType: None
+
+2025-01-18 23:00:39.400755 - Нет данных для отправки сводки.
+NoneType: None
+
+2025-01-25 09:01:05.003412 - Версия актуальна: 11.02.162
+NoneType: None
+
