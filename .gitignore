@@ -1,7 +1,6 @@
 # Created by venv; see https://docs.python.org/3/library/venv.html
-*
 key.env
 pyvenv.cfg
 medoc_log.txt
 .xlsx
-.bat
+.batв
