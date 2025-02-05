@@ -11,6 +11,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import traceback
+import sys
+from models import day_to_duty
+
 
 # Загрузка переменных окружения
 load_dotenv('key.env')
@@ -49,7 +52,9 @@ def log_error(message):
         log_file.write(f"{datetime.now()} - {message}\n")
         log_file.write(traceback.format_exc() + "\n")
 
-
+def duty_day():
+    day_to_duty()
+    send_to_telegram(day_to_duty(), thread_id=THREAD_ID)
 # Функция для создания подключения к базе данных
 def create_connection():
     try:
@@ -155,7 +160,7 @@ def send_summary_monthly():
         ending = get_message_ending(count)
         message += f"👤<b>{user_name}</b>: {count} {ending}\n"
     print(f"{message}\n")
-    send_to_telegram(message, thread_id=THREAD_ID)
+    send_to_telegram(message, hread_id=THREAD_ID)
     
 
 # Функция для отправки сводки за день
@@ -214,6 +219,7 @@ def main():
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)
+    schedule.every().day.at("08:00").do(duty_day)
 
     while True:
         schedule.run_pending()
