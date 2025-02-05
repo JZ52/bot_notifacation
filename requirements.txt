@@ -5,3 +5,4 @@ aiogram
 psycopg2
 psycopg2-binary
 schedule
+openpyxl
