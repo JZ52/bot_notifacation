@@ -46,12 +46,6 @@ def get_message_ending(count):
     else:
         return "сообщений"
 
-# Функция для логирования ошибок
-def log_error(message):
-    with open(LOG_FILE, "a", encoding='utf-8') as log_file:
-        log_file.write(f"{datetime.now()} - {message}\n")
-        log_file.write(traceback.format_exc() + "\n")
-
 def duty_day():
     day_to_duty()
     send_to_telegram(day_to_duty(), thread_id=THREAD_ID)
