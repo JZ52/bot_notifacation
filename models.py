@@ -48,5 +48,4 @@ def day_to_duty():
         first_value = row[0]  # Первое значение в строке
         if first_value in USER_DUTY:
             surname = USER_DUTY[first_value]  # Извлекаем фамилию из кортежа
-        message_to_telegram = f"Дежурный на сегодня: <b>{surname}<b>"
-        return message_to_telegram
+        return surname

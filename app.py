@@ -31,7 +31,6 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 THREAD_ID = os.getenv("THREAD_ID")
 MEDOC_URL = os.getenv("MEDOC_URL")
 VERSION_FILE = "version.txt"
-LOG_FILE = "medoc_log.txt"
 
 
 
@@ -47,8 +46,10 @@ def get_message_ending(count):
         return "сообщений"
 
 def duty_day():
-    day_to_duty()
-    send_to_telegram(day_to_duty(), thread_id=THREAD_ID)
+    user = day_to_duty()
+    message = (f"Сегодня дежурит: <b>{ user }</b>")
+    send_to_telegram(message, thread_id=THREAD_ID)
+
 # Функция для создания подключения к базе данных
 def create_connection():
     try:
@@ -129,10 +130,8 @@ def send_to_telegram(message, thread_id=None, retries=3):
             response = requests.post(url, json=payload, timeout=10)
             if response.status_code == 200:
                 return
-            else:
-                log_error(f"Ошибка отправки: {response.text}")
         except Exception as e:
-            log_error(f"Ошибка при отправке сообщения: {e}")
+            print(f"Исключение при отправке сообщения: {e}")
         time.sleep(5)  # Пауза перед повторной попыткой
 
 
@@ -210,10 +209,11 @@ def check_next_month():
 
 # Основная функция с расписанием задач
 def main():
+    schedule.every().day.at("08:00").do(duty_day())
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)
-    schedule.every().day.at("08:00").do(duty_day)
+    
 
     while True:
         schedule.run_pending()
