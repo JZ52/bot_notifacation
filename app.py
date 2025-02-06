@@ -4,6 +4,7 @@ import psycopg2
 import schedule
 import time
 import requests
+from datetime import date, timedelta
 from datetime import datetime
 from psycopg2 import OperationalError
 from selenium import webdriver
@@ -67,15 +68,21 @@ def create_connection():
         raise Exception(f"Ошибка подключения к базе данных: {e}")
 
 def get_montly_summary():
-    # Определяем текущий месяц и год
-    today = datetime.date.today()
+    today = date.today()
     year = today.year
     month = today.month
-    # Определяем первый и последний день текущего месяца
-    start_date = datetime.date(year, month, 1)
-    next_month = month % 12 + 1
-    next_year = year if month < 12 else year + 1
-    end_date = datetime.date(next_year, next_month, 1) - datetime.timedelta(days=1)
+
+    # Определяем предыдущий месяц
+    if month == 1:  # Если сейчас январь, то предыдущий месяц — декабрь прошлого года
+        prev_month = 12
+        prev_year = year - 1
+    else:
+        prev_month = month - 1
+        prev_year = year
+
+    # Начало и конец предыдущего месяца
+    start_date = date(prev_year, prev_month, 1)
+    end_date = date(year, month, 1) - timedelta(days=1)
     query = """
     SELECT user_name, COUNT(slack_messages) AS message_count
     FROM slack_messages
@@ -136,14 +143,22 @@ def send_to_telegram(message, thread_id=None, retries=3):
 
 
 def send_summary_monthly():
-    today = datetime.date.today()
+    today = date.today()
     year = today.year
     month = today.month
+
+    # Определяем предыдущий месяц
+    if month == 1:  # Если сейчас январь, то предыдущий месяц — декабрь прошлого года
+        prev_month = 12
+        prev_year = year - 1
+    else:
+        prev_month = month - 1
+        prev_year = year
+
+    # Начало и конец предыдущего месяца
+    start_date = date(prev_year, prev_month, 1)
+    end_date = date(year, month, 1) - timedelta(days=1)
     summary = get_montly_summary()
-    start_date = datetime.date(year, month, 1)
-    next_month = month % 12 + 1
-    next_year = year if month < 12 else year + 1
-    end_date = datetime.date(next_year, next_month, 1) - datetime.timedelta(days=1)
     if not summary:
         log_error("Нет данных для отправки сводки.")
         return
@@ -153,7 +168,7 @@ def send_summary_monthly():
         ending = get_message_ending(count)
         message += f"👤<b>{user_name}</b>: {count} {ending}\n"
     print(f"{message}\n")
-    send_to_telegram(message, hread_id=THREAD_ID)
+    send_to_telegram(message, thread_id=THREAD_ID)
     
 
 # Функция для отправки сводки за день
@@ -209,7 +224,7 @@ def check_next_month():
 
 # Основная функция с расписанием задач
 def main():
-    schedule.every().day.at("08:00").do(duty_day())
+    schedule.every().day.at("08:00").do(duty_day)
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)
