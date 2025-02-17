@@ -47,8 +47,7 @@ def get_message_ending(count):
         return "сообщений"
 
 def duty_day():
-    user = day_to_duty()
-    message = (f"Сегодня дежурит: <b>{ user }</b>")
+    message = day_to_duty()
     send_to_telegram(message, thread_id=THREAD_ID)
 
 # Функция для создания подключения к базе данных
@@ -225,6 +224,7 @@ def check_next_month():
 # Основная функция с расписанием задач
 def main():
     schedule.every().day.at("08:00").do(duty_day)
+    schedule.every().day.at("22:00").do(duty_day)
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)

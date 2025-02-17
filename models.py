@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 from openpyxl import load_workbook
-from datetime import datetime
+from datetime import datetime, time
 import re
 
 FILE_PATH = 'график дежурств 2025.xlsx'
@@ -23,7 +23,9 @@ DUTY = ""
 LINE = ""
 line_letter = ""
 
+
 def day_to_duty():
+    MESSAGE = "Сегодня "
     for month in MONTH:
         if MONTH[month] == CURRENT_MONTH:
             ACTUAL_MONTH = month
@@ -32,6 +34,11 @@ def day_to_duty():
     sheet = wb[ACTUAL_MONTH]
 
     CURRENT_DATE = datetime.now().day
+    TIME = datetime.now().time()
+
+    if TIME >= time(21, 30) and TIME <= time(23, 59):
+        CURRENT_DATE += 1
+        MESSAGE = f"Завтра "
 
     for row in sheet['A1:AF1']:
         for cell in row:
@@ -48,4 +55,5 @@ def day_to_duty():
         first_value = row[0]  # Первое значение в строке
         if first_value in USER_DUTY:
             surname = USER_DUTY[first_value]  # Извлекаем фамилию из кортежа
-        return surname
+            full_message = f"{ MESSAGE } дежурит: <b> { surname }</b>"
+        return full_message
