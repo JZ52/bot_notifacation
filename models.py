@@ -36,7 +36,7 @@ def day_to_duty():
     CURRENT_DATE = datetime.now().day
     TIME = datetime.now().time()
 
-if TIME >= time(0, 0) and TIME <= time(23, 59):
+if TIME >= time(21, 30) and TIME <= time(23, 59):
     NEXT_CURRENT_DATE = CURRENT_DATE + timedelta(days=1)
     if NEXT_CURRENT_DATE.month != CURRENT_DATE.month:
         NEXT_CURRENT_DATE = datetime(NEXT_CURRENT_DATE.year, NEXT_CURRENT_DATE.month, 1).date()
