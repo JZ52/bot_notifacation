@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 from openpyxl import load_workbook
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 import re
 
 FILE_PATH = 'график дежурств 2025.xlsx'
@@ -22,10 +22,10 @@ ACTUAL_MONTH = ""
 DUTY = ""
 LINE = ""
 line_letter = ""
+MESSAGE = "Сегодня"
 
 
 def day_to_duty():
-    MESSAGE = "Сегодня "
     for month in MONTH:
         if MONTH[month] == CURRENT_MONTH:
             ACTUAL_MONTH = month
@@ -36,12 +36,14 @@ def day_to_duty():
     CURRENT_DATE = datetime.now().day
     TIME = datetime.now().time()
 
-if TIME >= time(21, 30) and TIME <= time(23, 59):
-    NEXT_CURRENT_DATE = CURRENT_DATE + timedelta(days=1)
-    if NEXT_CURRENT_DATE.month != CURRENT_DATE.month:
-        NEXT_CURRENT_DATE = datetime(NEXT_CURRENT_DATE.year, NEXT_CURRENT_DATE.month, 1).date()
+    if TIME >= time(21, 30) and TIME <= time(23, 59):
+        CURRENT_DATE = datetime.now().date()
+        MESSAGE = "Завтра"
+        NEXT_CURRENT_DATE = CURRENT_DATE + timedelta(days=1)
+        if NEXT_CURRENT_DATE.month != CURRENT_DATE.month:
+            NEXT_CURRENT_DATE = datetime(NEXT_CURRENT_DATE.year, NEXT_CURRENT_DATE.month, 1).date()
+            CURRENT_DATE = NEXT_CURRENT_DATE.day
         CURRENT_DATE = NEXT_CURRENT_DATE.day
-    CURRENT_DATE = NEXT_CURRENT_DATE.day
 
     for row in sheet['A1:AF1']:
         for cell in row:
@@ -59,4 +61,4 @@ if TIME >= time(21, 30) and TIME <= time(23, 59):
         if first_value in USER_DUTY:
             surname = USER_DUTY[first_value]  # Извлекаем фамилию из кортежа
             full_message = f"{ MESSAGE } дежурит: <b> { surname }</b>"
-        return full_message
+    return full_message
