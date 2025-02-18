@@ -224,8 +224,7 @@ def check_next_month():
 # Основная функция с расписанием задач
 def main():
     schedule.every().day.at("08:00").do(duty_day)
-    #schedule.every().day.at("23:05").do()
-    duty_day()
+    schedule.every().day.at("22:00").do(duty_day)
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)
