@@ -36,9 +36,12 @@ def day_to_duty():
     CURRENT_DATE = datetime.now().day
     TIME = datetime.now().time()
 
-    if TIME >= time(21, 30) and TIME <= time(23, 59):
-        CURRENT_DATE += 1
-        MESSAGE = f"Завтра "
+if TIME >= time(0, 0) and TIME <= time(23, 59):
+    NEXT_CURRENT_DATE = CURRENT_DATE + timedelta(days=1)
+    if NEXT_CURRENT_DATE.month != CURRENT_DATE.month:
+        NEXT_CURRENT_DATE = datetime(NEXT_CURRENT_DATE.year, NEXT_CURRENT_DATE.month, 1).date()
+        CURRENT_DATE = NEXT_CURRENT_DATE.day
+    CURRENT_DATE = NEXT_CURRENT_DATE.day
 
     for row in sheet['A1:AF1']:
         for cell in row:
