@@ -22,10 +22,12 @@ ACTUAL_MONTH = ""
 DUTY = ""
 LINE = ""
 line_letter = ""
-MESSAGE = "Сегодня"
+
 
 
 def day_to_duty():
+    MESSAGE = "Сегодня"
+
     for month in MONTH:
         if MONTH[month] == CURRENT_MONTH:
             ACTUAL_MONTH = month
