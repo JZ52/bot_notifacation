@@ -250,10 +250,7 @@ def main():
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)
-    # check_dvr_work()
-    # schedule.every().day.at("23:00").do(send_summary)
-    # schedule.every().day.at("23:00").do(send_summary)
-    # schedule.every().day.at("23:00").do(send_summary)
+    check_dvr_work(3).hours.do(check_dvr_work)
 
     while True:
         schedule.run_pending()
