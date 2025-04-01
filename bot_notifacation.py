@@ -13,7 +13,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import traceback
 import sys
-from models import day_to_duty
+from models import day_to_duty, check_dvr
+import json
 
 
 # Загрузка переменных окружения
@@ -203,7 +204,7 @@ def check_medoc_updates():
             with open(VERSION_FILE, "w", encoding='utf-8') as file:
                 file.write(version_new)
             message = (
-                f"\U0001F195 Вышла новая версия M.E.Doс: <b>{version_new}</b>.\n"
+                f"\U0001F195 Вышла новая версия M.E.Doс: <b>{version_new}</b>\n"
                 f"Обновите, пожалуйста!"
             )
             send_to_telegram(message, thread_id=THREAD_ID)
@@ -221,6 +222,13 @@ def check_next_month():
     if today.day == 1:
         result = send_summary_monthly()
 
+def check_dvr_work():
+    message = check_dvr()
+    print(message)
+    decoded_message = json.loads(json.dumps(message, ensure_ascii=False))
+    if message:
+        send_to_telegram(message, thread_id=THREAD_ID)
+ 
 # Основная функция с расписанием задач
 def main():
     schedule.every().day.at("08:00").do(duty_day)
@@ -228,7 +236,10 @@ def main():
     schedule.every().day.at("00:00").do(check_next_month)
     schedule.every().day.at("23:00").do(send_summary)
     schedule.every().saturday.at("09:00").do(check_medoc_updates)
-    
+    # check_dvr_work()
+    # schedule.every().day.at("23:00").do(send_summary)
+    # schedule.every().day.at("23:00").do(send_summary)
+    # schedule.every().day.at("23:00").do(send_summary)
 
     while True:
         schedule.run_pending()
