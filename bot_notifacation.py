@@ -238,7 +238,6 @@ def check_dvr_work():
  
 # Основная функция с расписанием задач
 def main():
-    #test
     scheduler = BlockingScheduler()
 
     scheduler.add_job(duty_day, 'cron', hour=8)
