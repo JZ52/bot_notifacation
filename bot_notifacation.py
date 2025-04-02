@@ -223,7 +223,7 @@ def check_next_month():
         result = send_summary_monthly()
 
 def check_dvr_work():
-    if HOUR < 23 and HOUR > 9:
+    if HOUR < 21 and HOUR > 9:
         message = check_dvr()
         string_ip = []
         for item in message:
