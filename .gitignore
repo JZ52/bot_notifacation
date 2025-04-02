@@ -8,3 +8,7 @@ version.txt
 test.py
 ip_dvr.txt
 *sql
+Lib/
+Scripts/
+__pycache__/
+*.pyc

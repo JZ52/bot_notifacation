@@ -1,14 +1,8 @@
-import pandas as pd
 import os
 from openpyxl import load_workbook
 from datetime import datetime, time, timedelta
 import re
-import socket
-from collections import defaultdict
-import json
 
-
-IP_FILE_PATH = 'ip_dvr.txt'
 FILE_PATH = 'график дежурств 2025.xlsx'
 
 MONTH = {
@@ -83,33 +77,3 @@ def day_to_duty():
         return f"Ошибка: дежурный не найден в списке сотрудников."
 
     return f"{message} дежурит: <b>{duty_person}</b>"
-
-def check_service(dic, port, body):
-    down_dvr = set()
-    for key, value in dic.items():
-        for ip_check_dvr in value:
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                result = sock.connect_ex((ip_check_dvr, port))
-                status = "в сети" if result == 0 else "не в сети"
-                print(f"Видеорегистратор {ip_check_dvr}:{port} {status}")
-                if result != 0:
-                    body.add(f"{key} - {ip_check_dvr}")
-                    down_dvr.add(ip_check_dvr)
-
-    if body:
-        return "Видеорегистраторы не в сети:\n" + "\n".join(body)
-
-
-def read_ip_file(IP_FILE_PATH):
-    dic = defaultdict(list)
-    with open(IP_FILE_PATH, 'r', encoding="utf-8") as file:
-        for ip_check in file:
-            key, *value = ip_check.split()
-            dic[key].extend(value)
-    return dic
-
-def check_dvr():
-    body = set()
-    dic = read_ip_file(IP_FILE_PATH)
-    check_service(dic, 85, body)
-    return list(body)
