@@ -34,7 +34,7 @@ THREAD_ID = os.getenv("THREAD_ID")
 MEDOC_URL = os.getenv("MEDOC_URL")
 VERSION_FILE = "version.txt"
 
-
+HOUR = datetime.now().hour
 
 
 def get_message_ending(count):
@@ -223,25 +223,24 @@ def check_next_month():
         result = send_summary_monthly()
 
 def check_dvr_work():
-    message = check_dvr()
-    print(message)
-    string_ip = []
-    for item in message:
-        item = item.replace('_', ' ')
-        parts = item.split(' - ')
-        if len(parts) == 2:
-            name, ip = parts
-            link = f'<a href = "http://{ ip }:85"> { ip } </a>'
-            string_ip.append(f'{ name } - { link }')
-        else:
-            string_ip.append(item)
-
-    result= '\n'.join(string_ip)
-    print(result)
-    if result:
-        head = f'Видеорегистраторы не в сети: \n\n'
-        all = head + result
-        send_to_telegram(all, thread_id=THREAD_ID)
+    if HOUR < 23 and HOUR > 9:
+        message = check_dvr()
+        string_ip = []
+        for item in message:
+            item = item.replace('_', ' ')
+            parts = item.split(' - ')
+            if len(parts) == 2:
+                name, ip = parts
+                link = f'<a href = "http://{ ip }:85"> { ip } </a>'
+                string_ip.append(f'{ name } - { link }')
+            else:
+                string_ip.append(item)
+        result= '\n'.join(string_ip)
+        print(result)
+        if result:
+            head = f'Видеорегистраторы не в сети: \n\n'
+            all = head + result
+            send_to_telegram(all, thread_id=THREAD_ID)
  
 # Основная функция с расписанием задач
 def main():
