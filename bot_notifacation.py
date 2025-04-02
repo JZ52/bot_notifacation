@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from models import day_to_duty, check_dvr
 from apscheduler.schedulers.blocking import BlockingScheduler
+import time
 
 
 # Загрузка переменных окружения
@@ -29,8 +30,6 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 THREAD_ID = os.getenv("THREAD_ID")
 MEDOC_URL = os.getenv("MEDOC_URL")
 VERSION_FILE = "version.txt"
-
-HOUR = datetime.now().hour
 
 
 def get_message_ending(count):
