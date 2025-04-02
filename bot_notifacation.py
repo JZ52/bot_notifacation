@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
 import psycopg2
-import schedule
-import time
 import requests
 from datetime import date, timedelta
 from datetime import datetime
@@ -11,10 +9,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-import traceback
-import sys
 from models import day_to_duty, check_dvr
-import json
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 # Загрузка переменных окружения
@@ -223,37 +219,42 @@ def check_next_month():
         result = send_summary_monthly()
 
 def check_dvr_work():
-    if HOUR < 21 and HOUR > 9:
-        message = check_dvr()
-        string_ip = []
-        for item in message:
-            item = item.replace('_', ' ')
-            parts = item.split(' - ')
-            if len(parts) == 2:
-                name, ip = parts
-                link = f'<a href = "http://{ ip }:85"> { ip } </a>'
-                string_ip.append(f'<b>{ name }</b> - { link }')
-            else:
-                string_ip.append(item)
-        result= '\n'.join(string_ip)
-        print(result)
-        if result:
-            head = f'Видеорегистраторы не в сети: \n\n'
-            all = head + result
-            send_to_telegram(all, thread_id=THREAD_ID)
+    message = check_dvr()
+    string_ip = []
+    for item in message:
+        item = item.replace('_', ' ')
+        parts = item.split(' - ')
+        if len(parts) == 2:
+            name, ip = parts
+            link = f'<a href = "http://{ ip }:85"> { ip } </a>'
+            string_ip.append(f'<b>{ name }</b> - { link }')
+        else:
+            string_ip.append(item)
+    result= '\n'.join(string_ip)
+    print(result)
+    if result:
+        head = f'Видеорегистраторы не в сети: \n\n'
+        all = head + result
+        send_to_telegram(all, thread_id=THREAD_ID)
  
 # Основная функция с расписанием задач
 def main():
-    schedule.every().day.at("08:00").do(duty_day)
-    schedule.every().day.at("22:00").do(duty_day)
-    schedule.every().day.at("00:00").do(check_next_month)
-    schedule.every().day.at("23:00").do(send_summary)
-    schedule.every().saturday.at("09:00").do(check_medoc_updates)
-    schedule.every(3).hours.do(check_dvr_work)
+    scheduler = BlockingScheduler()
 
-    while True:
-        schedule.run_pending()
-        time.sleep(60)
+    scheduler.add_job(duty_day, 'cron', hour=8)
+    scheduler.add_job(duty_day, 'cron', hour=22)
+    scheduler.add_job(check_next_month, 'cron', hour=0, minute=0)
+    scheduler.add_job(send_summary, 'cron', hour=23)
+    scheduler.add_job(check_medoc_updates, hour=9)
+    scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
+
+    print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
+
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        print("\n🛑 Получен сигнал остановки. Завершение...")
+        scheduler.shutdown()
 
 
 if __name__ == "__main__":
