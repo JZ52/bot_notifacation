@@ -28,7 +28,7 @@ def message_to_telegram(body):
         if len(parts) == 2:
             name, ip = parts
             link = f'<a href = "http://{ ip }:85"> { ip } </a>'
-            string_ip.append(f'<b>{ name }</b> - { link }')
+            string_ip.append(f'🛒 <b>{ name }</b> - { link }')
         else:
             string_ip.append(item)
     result= '\n'.join(string_ip)
