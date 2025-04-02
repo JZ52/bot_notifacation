@@ -5,4 +5,4 @@ aiogram
 psycopg2
 psycopg2-binary
 openpyxl
-APScheduler
+apscheduler
