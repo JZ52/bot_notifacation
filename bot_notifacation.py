@@ -219,31 +219,28 @@ def check_next_month():
         result = send_summary_monthly()
 
 def check_dvr_work():
-    message = check_dvr()
-    if message:
-        head = f'Видеорегистраторы не в сети: \n\n'
-        all = head + message
-        send_to_telegram(all, thread_id=THREAD_ID)
+    all_message = check_dvr()
+    if all_message:
+        send_to_telegram(all_message, thread_id=THREAD_ID)
  
 # Основная функция с расписанием задач
 def main():
-    check_dvr_work()
-    # scheduler = BlockingScheduler()
-    #
-    # scheduler.add_job(duty_day, 'cron', hour=8)
-    # scheduler.add_job(duty_day, 'cron', hour=22)
-    # scheduler.add_job(check_next_month, 'cron', hour=0, minute=0)
-    # scheduler.add_job(send_summary, 'cron', hour=23)
-    # scheduler.add_job(check_medoc_updates, hour=9)
-    # scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
-    #
-    # print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
-    #
-    # try:
-    #     scheduler.start()
-    # except (KeyboardInterrupt, SystemExit):
-    #     print("\n🛑 Получен сигнал остановки. Завершение...")
-    #     scheduler.shutdown()
+    scheduler = BlockingScheduler()
+
+    scheduler.add_job(duty_day, 'cron', hour=8)
+    scheduler.add_job(duty_day, 'cron', hour=22)
+    scheduler.add_job(check_next_month, 'cron', hour=0, minute=0)
+    scheduler.add_job(send_summary, 'cron', hour=23)
+    scheduler.add_job(check_medoc_updates, hour=9)
+    scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
+
+    print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
+
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        print("\n🛑 Получен сигнал остановки. Завершение...")
+        scheduler.shutdown()
 
 
 if __name__ == "__main__":

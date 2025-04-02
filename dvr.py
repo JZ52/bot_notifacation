@@ -49,6 +49,8 @@ def check_dvr():
     check_service(dic, 85, body)
     if body:
         result = message_to_telegram(body)
-        return result
+        head = f'Видеорегистраторы не в сети: \n\n'
+        all_message = head + result
+        return all_message
     else:
         return None
