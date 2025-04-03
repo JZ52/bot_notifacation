@@ -231,7 +231,7 @@ def main():
     scheduler.add_job(duty_day, 'cron', hour=22)
     scheduler.add_job(check_next_month, 'cron', hour=0, minute=0)
     scheduler.add_job(send_summary, 'cron', hour=23)
-    scheduler.add_job(check_medoc_updates, 'cron' hour=9)
+    scheduler.add_job(check_medoc_updates, 'cron', hour=9)
     scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
 
     print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
