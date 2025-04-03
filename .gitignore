@@ -12,3 +12,4 @@ Lib/
 Scripts/
 __pycache__/
 *.pyc
+*ps1

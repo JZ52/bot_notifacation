@@ -13,6 +13,7 @@ from models import day_to_duty
 from dvr import check_dvr
 from apscheduler.schedulers.blocking import BlockingScheduler
 import time
+import subprocess
 
 
 # Загрузка переменных окружения
@@ -222,6 +223,10 @@ def check_dvr_work():
     all_message = check_dvr()
     if all_message:
         send_to_telegram(all_message, thread_id=THREAD_ID)
+    
+
+def backup_database():
+    subprocess.run("powershell", "-ExecutionPolicy", "Bypass", "-File", "backup_databese.ps1")
  
 # Основная функция с расписанием задач
 def main():
@@ -233,6 +238,7 @@ def main():
     scheduler.add_job(send_summary, 'cron', hour=23)
     scheduler.add_job(check_medoc_updates, 'cron', hour=9)
     scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
+    scheduler.add_job(backup_database, 'cron', hour = 23)
 
     print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
 
