@@ -11,9 +11,11 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from models import day_to_duty
 from dvr import check_dvr
-from apscheduler.schedulers.blocking import BlockingScheduler
+#from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 import subprocess
+from telegram_exporter import  export_start
+from db_connection import create_connection
 
 
 # Загрузка переменных окружения
@@ -47,22 +49,6 @@ def get_message_ending(count):
 def duty_day():
     message = day_to_duty()
     send_to_telegram(message, thread_id=THREAD_ID)
-
-# Функция для создания подключения к базе данных
-def create_connection():
-    try:
-        connection = psycopg2.connect(
-            host=SQL_ADRES,
-            user=SQL_USER,
-            password=SQL_PASSWORD,
-            database=SQL_DATABASE,
-            port=SQL_PORT,
-            client_encoding='UTF8'
-        )
-        print("Успешное подключение к базе данных")
-        return connection
-    except OperationalError as e:
-        raise Exception(f"Ошибка подключения к базе данных: {e}")
 
 def get_montly_summary():
     today = date.today()
@@ -250,4 +236,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    export_start()
