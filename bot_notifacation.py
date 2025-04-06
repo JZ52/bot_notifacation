@@ -225,7 +225,7 @@ def main():
     scheduler.add_job(check_medoc_updates, 'cron', hour=9)
     scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
     scheduler.add_job(backup_database, 'cron', hour = 23)
-    scheduler.add_jo(export_start, 'cron', day = 1, hour = 9, minute = 15)
+    scheduler.add_job(export_start, 'cron', day = 1, hour = 9, minute = 15)
 
     print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
 

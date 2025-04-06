@@ -12,4 +12,4 @@ Scripts/
 __pycache__/
 *.pyc
 *ps1
-user.txt
+*.txt
