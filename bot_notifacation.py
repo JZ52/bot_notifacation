@@ -5,17 +5,14 @@ import requests
 from datetime import date, timedelta
 from datetime import datetime
 from psycopg2 import OperationalError
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 from models import day_to_duty
 from dvr import check_dvr
-from apscheduler.schedulers.blocking import BlockingScheduler
+# from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 from telegram_exporter import  export_start
 from db_connection import create_connection
 import backup_ps1
+import medoc_utils
 
 
 # Загрузка переменных окружения
@@ -169,37 +166,6 @@ def send_summary():
     print(f"{message}\n")
     send_to_telegram(message, thread_id=THREAD_ID)
 
-
-# Функция для проверки обновлений M.E.Doc
-def check_medoc_updates():
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
-    try:
-        driver.get(MEDOC_URL)
-        version_new = driver.find_element(By.CLASS_NAME, "js-update-num").text
-        if os.path.exists(VERSION_FILE):
-            with open(VERSION_FILE, "r", encoding='utf-8') as file:
-                version_actual = file.read().strip()
-        else:
-            version_actual = ""
-
-        if version_new != version_actual:
-            with open(VERSION_FILE, "w", encoding='utf-8') as file:
-                file.write(version_new)
-            message = (
-                f"\U0001F195 Вышла новая версия M.E.Doс: <b>{version_new}</b>\n"
-                f"Обновите, пожалуйста!"
-            )
-            send_to_telegram(message, thread_id=THREAD_ID)
-            print(f"Новая версия: {version_new}")
-        else:
-            log_error(f"Версия актуальна: {version_actual}")
-    except Exception as e:
-        log_error(f"Ошибка при проверке обновлений M.E.Doc: {e}")
-    finally:
-        driver.quit()
-
-
 def check_next_month():
     today = datetime.now().date()
     if today.day == 1:
@@ -218,7 +184,7 @@ def main():
     scheduler.add_job(duty_day, 'cron', hour=22)
     scheduler.add_job(check_next_month, 'cron', hour=0, minute=0)
     scheduler.add_job(send_summary, 'cron', hour=23)
-    scheduler.add_job(check_medoc_updates, 'cron', hour=9)
+    scheduler.add_job(medoc_utils.check_medoc_updates, 'cron', hour=9, args=[THREAD_ID, MEDOC_URL, VERSION_FILE])
     scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
     scheduler.add_job(backup_ps1.backup_database, 'cron', hour = 23, minute = 30)
     scheduler.add_job(export_start, 'cron', day = 1, hour = 9, minute = 15)
