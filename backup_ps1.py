@@ -32,7 +32,6 @@ def get_latest_sql_file(folder):
     return max(sql_files, key=os.path.getmtime)
 
 def map_network_drive(drive_letter, path, username, password):
-    print(repr(username))  # Должно быть: 'NSBC\\zalecky'
     cmd = [
         "net", "use", f"{drive_letter}:", path,
         f"/user:{username}", password, "/persistent:no"
@@ -54,7 +53,6 @@ def backup_to_qnap():
     print(f"✅ Найден файл: {latest_file}")
 
     success, error = map_network_drive("Z", destination_path, username, password)
-    print(repr(username))
     if not success:
         print(f"❌ Ошибка при подключении сетевого диска: {error}")
         return
