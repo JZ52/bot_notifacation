@@ -3,17 +3,23 @@ import os
 import shutil
 import subprocess
 from datetime import datetime
+from dotenv import load_dotenv
 
 
-backup_folder = r"C:\backup"
-destination_path = r"\\192.168.11.20\backup_zalecky"
-username = r"NSBC\zalecky"
-password = "#na79rSZ2+"  # Храни безопасно!
+
+load_dotenv('key.env')
+
+
+backup_folder = os.getenv("BACKUP_FOLDER")
+destination_path = os.getenv("DESTINATION_PATH")
+username = os.getenv("NET_USERNAME")
+password = os.getenv("PASSWORD")
+
 
 def backup_database():
     subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", "backup_database.ps1"])
     backup_to_qnap()
-    
+
 
 def get_latest_sql_file(folder):
     sql_files = [
@@ -25,8 +31,8 @@ def get_latest_sql_file(folder):
         return None
     return max(sql_files, key=os.path.getmtime)
 
-# Монтирование сетевого диска (если нужно)
 def map_network_drive(drive_letter, path, username, password):
+    print(repr(username))  # Должно быть: 'NSBC\\zalecky'
     cmd = [
         "net", "use", f"{drive_letter}:", path,
         f"/user:{username}", password, "/persistent:no"
@@ -34,12 +40,10 @@ def map_network_drive(drive_letter, path, username, password):
     result = subprocess.run(cmd, capture_output=True, text=True)
     return result.returncode == 0, result.stderr.strip()
 
-# Отключение сетевого диска
 def unmap_network_drive(drive_letter):
     subprocess.run(["net", "use", f"{drive_letter}:", "/delete", "/y"],
                    capture_output=True)
 
-# Основной процесс
 def backup_to_qnap():
     latest_file = get_latest_sql_file(backup_folder)
 
@@ -49,8 +53,8 @@ def backup_to_qnap():
 
     print(f"✅ Найден файл: {latest_file}")
 
-    # Монтируем Z:
     success, error = map_network_drive("Z", destination_path, username, password)
+    print(repr(username))
     if not success:
         print(f"❌ Ошибка при подключении сетевого диска: {error}")
         return
