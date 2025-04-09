@@ -233,4 +233,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    backup_ps1.backup_database()
