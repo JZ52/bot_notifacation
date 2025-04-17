@@ -43,7 +43,6 @@ def read_ip_file(IP_FILE_PATH):
     return dic
 
 def check_dvr():
-    print("YES!")
     body = set()
     dic = read_ip_file(IP_FILE_PATH)
     check_service(dic, 85, body)
