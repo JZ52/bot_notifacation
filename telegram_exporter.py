@@ -1,5 +1,5 @@
 from db_connection import create_connection
-from datetime import date, timedelta
+from datetime import date
 import models_files
 from telegram_send_messages import send_telegram_files
 from dotenv import load_dotenv
@@ -51,7 +51,8 @@ def get_date_range():
 
     # Начало и конец предыдущего месяца
     date_from = date(prev_year, prev_month, 1)
-    date_to = date(year, month, 1) - timedelta(days=1)
+    date_to = date(year, month, 1)
+    print(date_from, date_to)
     return date_from, date_to
 
 

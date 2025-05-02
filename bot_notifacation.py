@@ -7,7 +7,7 @@ from datetime import datetime
 from psycopg2 import OperationalError
 from models import day_to_duty
 from dvr import check_dvr
-from apscheduler.schedulers.blocking import BlockingScheduler
+#from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 from telegram_exporter import  export_start
 from db_connection import create_connection
