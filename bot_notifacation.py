@@ -7,11 +7,10 @@ from datetime import datetime
 from psycopg2 import OperationalError
 from models import day_to_duty
 from dvr import check_dvr
-#from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 from telegram_exporter import  export_start
 from db_connection import create_connection
-import backup_ps1
 import medoc_utils
 
 
@@ -186,7 +185,6 @@ def main():
     scheduler.add_job(send_summary, 'cron', hour=23)
     scheduler.add_job(medoc_utils.check_medoc_updates, 'cron', hour=9, args=[THREAD_ID, MEDOC_URL, VERSION_FILE])
     scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
-    scheduler.add_job(backup_ps1.backup_database, 'cron', hour = 23, minute = 30)
     scheduler.add_job(export_start, 'cron', day = 1, hour = 9, minute = 15)
 
     print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
@@ -199,4 +197,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    medoc_utils.check_medoc_updates(THREAD_ID, MEDOC_URL, VERSION_FILE)

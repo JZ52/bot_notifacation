@@ -1,17 +1,37 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from bot_notifacation import send_to_telegram
 import os
 
 # Функция для проверки обновлений M.E.Doc
 def check_medoc_updates(THREAD_ID, MEDOC_URL, VERSION_FILE):
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+    
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    
+    driver = None 
+    
     try:
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+        
+        driver.implicitly_wait(10)
+        
         driver.get(MEDOC_URL)
-        version_new = driver.find_element(By.CLASS_NAME, "js-update-num").text
+        
+        version_element = WebDriverWait(driver, 15).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "js-update-num"))
+        )
+        version_new = version_element.text
+
         if os.path.exists(VERSION_FILE):
             with open(VERSION_FILE, "r", encoding='utf-8') as file:
                 version_actual = file.read().strip()
@@ -29,7 +49,11 @@ def check_medoc_updates(THREAD_ID, MEDOC_URL, VERSION_FILE):
             print(f"Новая версия: {version_new}")
         else:
             print(f"Версия актуальна: {version_actual}")
-    except Exception as e:
-            print(f"Ошибка при проверке обновлений M.E.Doc: {e}")
+            
+    except Exception as e:п
+        print(f"Ошибка при проверке обновлений M.E.Doc: {e}")
+        
     finally:
-        driver.quit()
+        # Гарантированное закрытие драйвера, если он был инициализирован
+        if driver:
+            driver.quit()

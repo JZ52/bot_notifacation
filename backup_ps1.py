@@ -5,7 +5,7 @@ import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
 
-
+#Работает на OS Windows. Подключается сетевой диск и выгружает туда бекап БД. При помощь PowerShell
 
 load_dotenv('key.env')
 
