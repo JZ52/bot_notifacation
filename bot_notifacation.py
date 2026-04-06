@@ -12,7 +12,7 @@ import time
 from telegram_exporter import  export_start
 from db_connection import create_connection
 import medoc_utils
-
+from pathlib import Path
 
 # Загрузка переменных окружения
 load_dotenv('key.env')
@@ -29,7 +29,11 @@ API_URL = os.getenv("API_URL")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 THREAD_ID = os.getenv("THREAD_ID")
 MEDOC_URL = os.getenv("MEDOC_URL")
-VERSION_FILE = "version.txt"
+
+
+
+BASE_DIR = Path(__file__).resolve().parent
+VERSION_FILE = BASE_DIR / "version.txt"
 
 
 def get_message_ending(count):
@@ -182,10 +186,10 @@ def main():
     scheduler.add_job(duty_day, 'cron', hour=8)
     scheduler.add_job(duty_day, 'cron', hour=22)
     scheduler.add_job(check_next_month, 'cron', hour=0, minute=0)
-    scheduler.add_job(send_summary, 'cron', hour=23)
+    #scheduler.add_job(send_summary, 'cron', hour=23)
     scheduler.add_job(medoc_utils.check_medoc_updates, 'cron', hour=9, args=[THREAD_ID, MEDOC_URL, VERSION_FILE])
     scheduler.add_job(check_dvr_work, 'cron', hour='9-21/3')  # 9, 12, 15, 18, 21
-    scheduler.add_job(export_start, 'cron', day = 1, hour = 9, minute = 15)
+    #scheduler.add_job(export_start, 'cron', day = 1, hour = 9, minute = 15)
 
     print("🟢 Планировщик запущен. Нажмите Ctrl+C для выхода.")
 
@@ -197,5 +201,4 @@ def main():
 
 
 if __name__ == "__main__":
-    #main()
-    medoc_utils.check_medoc_updates(THREAD_ID, MEDOC_URL, VERSION_FILE)
+    main()

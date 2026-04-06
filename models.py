@@ -2,8 +2,22 @@ import os
 from openpyxl import load_workbook
 from datetime import datetime, time, timedelta
 import re
+import io
+from dotenv import load_dotenv
+from smbclient import open_file, register_session
 
-FILE_PATH = 'график дежурств 2025.xlsx'
+load_dotenv('key.env')
+
+USER = os.getenv("USER")
+USER_PASSWORD = os.getenv("USER_PASSWORD")
+FOLDER = os.getenv("FOLDER")
+
+register_session(FOLDER, username = USER, password = USER_PASSWORD)
+year = datetime.now().year
+FILE_PATH = f'график дежурств { year }.xlsx'
+SHARE_PATH = rf"\\{FOLDER}\IT\{FILE_PATH}"
+
+
 
 MONTH = {
     "Январь": 1, "февраль": 2, "март": 3, "апрель": 4,
@@ -37,7 +51,11 @@ def day_to_duty():
 
     # Открываем книгу и выбираем лист
     try:
-        wb = load_workbook(FILE_PATH)
+        with open_file(SHARE_PATH, mode = 'rb') as file:
+            file_data = io.BytesIO(file.read())
+        wb = load_workbook(file_data, data_only=True)
+        if actual_month not in wb.sheetnames:
+            return f"Ошибка: Лист '{ actual_month }' не найден в файле"
         sheet = wb[actual_month]
     except Exception as e:
         return f"Ошибка при загрузке файла: {e}"
@@ -75,5 +93,5 @@ def day_to_duty():
 
     if not duty_person:
         return f"Ошибка: дежурный не найден в списке сотрудников."
-
+    print(f"{message} дежурит: <b>{duty_person}</b>")
     return f"{message} дежурит: <b>{duty_person}</b>"
