@@ -12,7 +12,12 @@ USER = os.getenv("SMB_USER")
 USER_PASSWORD = os.getenv("SMB_USER_PASSWORD")
 FOLDER = os.getenv("FOLDER")
 
-register_session(FOLDER, username = USER, password = USER_PASSWORD)
+register_session(
+    FOLDER,
+    username = USER,
+    password = USER_PASSWORD,
+    auth_protocol ='ntlm'
+    )
 year = datetime.now().year
 FILE_PATH = f'график дежурств { year }.xlsx'
 SHARE_PATH = rf"\\{FOLDER}\IT\{FILE_PATH}"
