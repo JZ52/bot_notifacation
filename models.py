@@ -8,8 +8,8 @@ from smbclient import open_file, register_session
 
 load_dotenv('key.env')
 
-USER = os.getenv("USER")
-USER_PASSWORD = os.getenv("USER_PASSWORD")
+USER = os.getenv("SMB_USER")
+USER_PASSWORD = os.getenv("SMB_USER_PASSWORD")
 FOLDER = os.getenv("FOLDER")
 
 register_session(FOLDER, username = USER, password = USER_PASSWORD)
