@@ -8,14 +8,14 @@ from smbclient import open_file, register_session
 
 load_dotenv('key.env')
 
-USER = os.getenv("SMB_USER")
-USER_PASSWORD = os.getenv("SMB_USER_PASSWORD")
+SMB_USER = os.getenv("SMB_USER")
+SMB_USER_PASSWORD = os.getenv("SMB_USER_PASSWORD")
 FOLDER = os.getenv("FOLDER")
 
 register_session(
     FOLDER,
-    username = USER,
-    password = USER_PASSWORD,
+    username = SMB_USER,
+    password = SMB_USER_PASSWORD,
     auth_protocol ='ntlm'
     )
 year = datetime.now().year
