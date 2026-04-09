@@ -8,19 +8,8 @@ from smbclient import open_file, register_session
 
 load_dotenv('key.env')
 
-SMB_USER = os.getenv("SMB_USER")
-SMB_USER_PASSWORD = os.getenv("SMB_USER_PASSWORD")
-FOLDER = os.getenv("FOLDER")
-
-register_session(
-    FOLDER,
-    username = SMB_USER,
-    password = SMB_USER_PASSWORD,
-    auth_protocol ='ntlm'
-    )
 year = datetime.now().year
-FILE_PATH = f'график дежурств { year }.xlsx'
-SHARE_PATH = rf"\\{FOLDER}\IT\{FILE_PATH}"
+
 
 
 
@@ -37,6 +26,23 @@ USER_DUTY = {
 }
 
 def day_to_duty():
+    SMB_USER = os.getenv("SMB_USER")
+    SMB_USER_PASSWORD = os.getenv("SMB_USER_PASSWORD")
+    FOLDER = os.getenv("FOLDER")
+
+    try:
+        register_session(
+            FOLDER,
+            username=SMB_USER,
+            password=SMB_USER_PASSWORD,
+            auth_protocol='ntlm'
+        )
+    except Exception as e:
+        return f"Ошибка авторизации SMB: { e }"
+
+    FILE_PATH = f'график дежурств {year}.xlsx'
+    SHARE_PATH = rf"\\{FOLDER}\IT\{FILE_PATH}"
+
     now = datetime.now()
     current_date = now.day
     current_month = now.month
@@ -98,5 +104,4 @@ def day_to_duty():
 
     if not duty_person:
         return f"Ошибка: дежурный не найден в списке сотрудников."
-    print(f"{message} дежурит: <b>{duty_person}</b>")
     return f"{message} дежурит: <b>{duty_person}</b>"
